@@ -22,4 +22,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Perusahaan::class, 'owner_user_id');
     }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class);
+    }
 }

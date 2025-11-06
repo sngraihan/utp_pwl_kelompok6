@@ -7,11 +7,11 @@
     <p>Belum ada mahasiswa.</p>
   @else
     <table border="1" cellspacing="0" cellpadding="6">
-      <tr><th>Nama</th><th>NIM</th></tr>
+      <tr><th>Nama</th><th>NPM</th></tr>
       @foreach($penempatans as $p)
         <tr>
           <td>{{ $p->mahasiswa->nama ?? '-' }}</td>
-          <td>{{ $p->mahasiswa->nim ?? '-' }}</td>
+          <td>{{ $p->mahasiswa->npm ?? '-' }}</td>
         </tr>
       @endforeach
     </table>
