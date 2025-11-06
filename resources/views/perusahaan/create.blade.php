@@ -1,4 +1,5 @@
 <h3>Tambah Perusahaan</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if(session('ok'))
   <div style="color: green;">{{ session('ok') }}</div>
 @endif
@@ -14,6 +15,15 @@
 
 <form method="POST" action="{{ route('perusahaan.store') }}">
   @csrf
+  <div>
+    <label for="email">Email Login (opsional)</label>
+    <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="contoh: nama-perusahaan@company.local">
+    <small>Jika dikosongkan, sistem akan membuat email otomatis dari nama perusahaan.</small>
+    @error('email')
+      <span style="color: red;">{{ $message }}</span>
+    @enderror
+  </div><br>
+
   <div>
     <label for="nama">Nama Perusahaan</label>
     <input id="nama" name="nama" value="{{ old('nama') }}" placeholder="Nama" required>

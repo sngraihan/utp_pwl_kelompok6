@@ -1,4 +1,5 @@
 <h3>Perusahaan</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if(session('ok'))
   <div style="color: green;">{{ session('ok') }}</div>
 @endif
@@ -14,6 +15,8 @@
         <th>Alamat</th>
         <th>PIC</th>
         <th>Kontak</th>
+        <th>Email Login</th>
+        <th>Password Default</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -25,6 +28,8 @@
           <td>{{ $p->alamat ?? '-' }}</td>
           <td>{{ $p->pic ?? '-' }}</td>
           <td>{{ $p->kontak ?? '-' }}</td>
+          <td>{{ $p->owner->email ?? '-' }}</td>
+          <td>12345678</td>
           <td>
             <a href="{{ route('perusahaan.edit', $p) }}">Edit</a>
             <form action="{{ route('perusahaan.destroy', $p) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus data ini?')">

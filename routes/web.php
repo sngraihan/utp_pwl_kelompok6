@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PenempatanController;
+use App\Http\Controllers\AbsensiController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ Route::middleware('guest')->group(function () {
 
 // Authenticated
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // CRUD untuk nilai UTP (admin only)
@@ -30,6 +31,12 @@ Route::middleware('auth')->group(function () {
     // Perusahaan hanya edit profilnya sendiri (opsional, nanti dibikin)
     Route::middleware('role:perusahaan')->group(function () {
         Route::get('/perusahaan/profil', fn() => view('perusahaan.profil')); // placeholder
+    });
+
+    // Absensi untuk mahasiswa
+    Route::middleware('role:mahasiswa')->group(function () {
+        Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
+        Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
     });
 });
 

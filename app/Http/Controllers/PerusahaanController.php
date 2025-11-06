@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perusahaan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PerusahaanController extends Controller
 {
     public function index()
     {
-        $data = Perusahaan::latest()->paginate(10);
+        $data = Perusahaan::with('owner')->latest()->paginate(10);
         return view('perusahaan.index', compact('data'));
     }
 
@@ -25,9 +28,36 @@ class PerusahaanController extends Controller
             'alamat' => 'nullable|string|max:255',
             'pic' => 'nullable|string|max:150',
             'kontak' => 'nullable|string|max:150',
+            'email' => 'nullable|email|unique:users,email',
         ]);
-        Perusahaan::create($v);
-        return redirect('/perusahaan')->with('ok', 'Data perusahaan ditambahkan');
+
+        // Determine login email for perusahaan owner
+        $email = $r->input('email');
+        if (!$email) {
+            $base = Str::slug($v['nama'], '.');
+            $domain = 'company.local';
+            $email = ($base ?: 'company') . '@' . $domain;
+            $try = 1;
+            while (User::where('email', $email)->exists()) {
+                $email = ($base ?: 'company') . "+$try@" . $domain;
+                $try++;
+            }
+        }
+
+        // Create owner user with default password
+        $user = User::create([
+            'name' => $v['nama'],
+            'email' => $email,
+            'password' => Hash::make('12345678'),
+            'role' => 'perusahaan',
+        ]);
+
+        // Create perusahaan linked to owner user
+        $pData = collect($v)->except(['email'])->toArray();
+        $pData['owner_user_id'] = $user->id;
+        Perusahaan::create($pData);
+
+        return redirect('/perusahaan')->with('ok', 'Perusahaan dibuat. Login: ' . $email . ' / 12345678');
     }
 
     public function edit(Perusahaan $perusahaan)

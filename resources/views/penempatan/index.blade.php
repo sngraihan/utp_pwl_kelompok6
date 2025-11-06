@@ -1,5 +1,5 @@
 <h3>Data Penempatan</h3>
-<h3>Data Penempatan</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if(session('ok')) <div style="color:green">{{ session('ok') }}</div> @endif
 <p><a href="{{ route('penempatan.create') }}">Tambah Penempatan</a></p>
 

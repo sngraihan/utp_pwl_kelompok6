@@ -1,4 +1,5 @@
 <h3>Tambah Mahasiswa</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if(session('ok'))
   <div style="color: green;">{{ session('ok') }}</div>
 @endif
@@ -17,6 +18,14 @@
     <label for="npm">NPM</label>
     <input id="npm" name="npm" value="{{ old('npm') }}" placeholder="NPM" required>
     @error('npm')
+      <span style="color: red;">{{ $message }}</span>
+    @enderror
+  </div><br>
+  <div>
+    <label for="email">Email Login (opsional)</label>
+    <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="contoh: npm@student.local">
+    <small>Jika dikosongkan, sistem akan membuat email otomatis berbasis NPM.</small>
+    @error('email')
       <span style="color: red;">{{ $message }}</span>
     @enderror
   </div><br>

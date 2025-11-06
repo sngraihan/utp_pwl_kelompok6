@@ -1,4 +1,5 @@
 <h3>Mahasiswa</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if(session('ok'))
   <div style="color: green;">{{ session('ok') }}</div>
 @endif
@@ -14,6 +15,8 @@
         <th>Nama</th>
         <th>Jurusan</th>
         <th>Angkatan</th>
+        <th>Email Login</th>
+        <th>Password Default</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -25,6 +28,8 @@
           <td>{{ $m->nama }}</td>
           <td>{{ $m->jurusan ?? '-' }}</td>
           <td>{{ $m->angkatan ?? '-' }}</td>
+          <td>{{ $m->user->email ?? '-' }}</td>
+          <td>12345678</td>
           <td>
             <a href="{{ route('mahasiswa.edit', $m) }}">Edit</a>
             <form action="{{ route('mahasiswa.destroy', $m) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus data ini?')">

@@ -1,5 +1,5 @@
 <h3>Edit Penempatan</h3>
-<h3>Edit Penempatan</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if ($errors->any())
   <div style="color:red">@foreach($errors->all() as $e)<div>{{ $e }}</div>@endforeach</div>
 @endif
@@ -26,10 +26,10 @@
   </select><br><br>
 
   <label>Tanggal Mulai</label><br>
-  <input type="date" name="mulai" value="{{ $penempatan->mulai }}" required><br><br>
+  <input type="date" name="mulai" value="{{ old('mulai', $penempatan->mulai) }}" required><br><br>
 
   <label>Tanggal Selesai (opsional)</label><br>
-  <input type="date" name="selesai" value="{{ $penempatan->selesai }}"><br><br>
+  <input type="date" name="selesai" value="{{ old('selesai', $penempatan->selesai) }}"><br><br>
 
   <button type="submit">Update</button>
 </form>

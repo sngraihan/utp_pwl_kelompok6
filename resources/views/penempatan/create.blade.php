@@ -1,4 +1,5 @@
 <h3>Tambah Penempatan</h3>
+<p><a href="{{ route('dashboard') }}">&larr; Kembali ke Dashboard</a></p>
 @if ($errors->any())
   <div style="color:red">@foreach($errors->all() as $e)<div>{{ $e }}</div>@endforeach</div>
 @endif
@@ -9,7 +10,9 @@
   <select name="mahasiswa_id" required>
     <option value="">-- pilih --</option>
     @foreach($mahasiswas as $m)
-      <option value="{{ $m->id }}">{{ $m->npm }} - {{ $m->nama }}</option>
+      <option value="{{ $m->id }}" {{ old('mahasiswa_id') == $m->id ? 'selected' : '' }}>
+        {{ $m->npm }} - {{ $m->nama }}
+      </option>
     @endforeach
   </select><br><br>
 
@@ -17,15 +20,17 @@
   <select name="perusahaan_id" required>
     <option value="">-- pilih --</option>
     @foreach($perusahaans as $c)
-      <option value="{{ $c->id }}">{{ $c->nama }}</option>
+      <option value="{{ $c->id }}" {{ old('perusahaan_id') == $c->id ? 'selected' : '' }}>
+        {{ $c->nama }}
+      </option>
     @endforeach
   </select><br><br>
 
   <label>Tanggal Mulai</label><br>
-  <input type="date" name="mulai" required><br><br>
+  <input type="date" name="mulai" value="{{ old('mulai') }}" required><br><br>
 
   <label>Tanggal Selesai (opsional)</label><br>
-  <input type="date" name="selesai"><br><br>
+  <input type="date" name="selesai" value="{{ old('selesai') }}"><br><br>
 
   <button type="submit">Simpan</button>
 </form>

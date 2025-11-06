@@ -2,12 +2,14 @@
 <h2>Dashboard Mahasiswa</h2>
 <p>Halo, {{ auth()->user()->name }}</p>
 
-@if(isset($penempatan) && $penempatan)
-  <p>Tempat Magang: <strong>{{ $penempatan->perusahaan->nama }}</strong></p>
+@if($penempatan)
+  <div>
+    <p>Tempat Magang: <strong>{{ $penempatan->perusahaan?->nama ?? '-' }}</strong></p>
+    <p>Periode: {{ $penempatan->mulai }} s/d {{ $penempatan->selesai ?? 'sekarang' }}</p>
+    <p><a href="{{ route('absensi.index') }}">Buka Halaman Absensi</a></p>
+  </div>
 @else
-  <p>Belum ada penempatan magang.</p>
+  <p>Belum ada penempatan aktif. Silakan hubungi admin untuk penempatan.</p>
 @endif
 
-<p><a href="/absensi">Absensi</a> (akan kita aktifkan setelah controller absensi siap)</p>
-
-<form method="POST" action="/logout">@csrf<button>Logout</button></form>
+<form method="POST" action="{{ route('logout') }}">@csrf<button>Logout</button></form>

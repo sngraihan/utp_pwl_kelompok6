@@ -35,14 +35,22 @@ class PenempatanController extends Controller
             'selesai' => 'nullable|date|after_or_equal:mulai',
         ]);
 
-        // Cegah duplikat mahasiswa di perusahaan yang sama dalam periode sama
-        $exists = Penempatan::where('mahasiswa_id', $data['mahasiswa_id'])
-            ->where('perusahaan_id', $data['perusahaan_id'])
-            ->whereNull('selesai')
+        // Cegah overlap penempatan untuk mahasiswa yang sama (hanya satu penempatan aktif dalam waktu yang sama)
+        $start = $data['mulai'];
+        $end = $data['selesai'] ?? null;
+        $overlap = Penempatan::where('mahasiswa_id', $data['mahasiswa_id'])
+            ->where(function ($q) use ($start) {
+                $q->whereNull('selesai')->orWhere('selesai', '>=', $start);
+            })
+            ->when($end, function ($q) use ($end) {
+                $q->where('mulai', '<=', $end);
+            })
             ->exists();
 
-        if ($exists) {
-            return back()->withErrors(['mahasiswa_id' => 'Mahasiswa ini sudah ditempatkan di perusahaan tersebut.']);
+        if ($overlap) {
+            return back()->withErrors([
+                'mahasiswa_id' => 'Mahasiswa sudah memiliki penempatan yang masih aktif/beririsan pada rentang tanggal tersebut.'
+            ])->withInput();
         }
 
         Penempatan::create($data);
@@ -65,6 +73,25 @@ class PenempatanController extends Controller
             'mulai' => 'required|date',
             'selesai' => 'nullable|date|after_or_equal:mulai',
         ]);
+
+        // Cegah overlap selain record ini
+        $start = $data['mulai'];
+        $end = $data['selesai'] ?? null;
+        $overlap = Penempatan::where('mahasiswa_id', $data['mahasiswa_id'])
+            ->where('id', '!=', $penempatan->id)
+            ->where(function ($q) use ($start) {
+                $q->whereNull('selesai')->orWhere('selesai', '>=', $start);
+            })
+            ->when($end, function ($q) use ($end) {
+                $q->where('mulai', '<=', $end);
+            })
+            ->exists();
+
+        if ($overlap) {
+            return back()->withErrors([
+                'mahasiswa_id' => 'Mahasiswa sudah memiliki penempatan yang masih aktif/beririsan pada rentang tanggal tersebut.'
+            ])->withInput();
+        }
 
         $penempatan->update($data);
         return redirect()->route('penempatan.index')->with('ok', 'Penempatan diperbarui');

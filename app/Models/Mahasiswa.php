@@ -9,7 +9,7 @@ class Mahasiswa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['npm', 'nama', 'jurusan', 'angkatan', 'kontak_pribadi'];
+    protected $fillable = ['npm', 'nama', 'jurusan', 'angkatan', 'kontak_pribadi', 'user_id'];
 
     protected $casts = [
         'kontak_pribadi' => 'encrypted',
@@ -18,5 +18,10 @@ class Mahasiswa extends Model
     public function penempatan()
     {
         return $this->hasOne(Penempatan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
