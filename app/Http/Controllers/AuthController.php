@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -14,19 +14,19 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $r)
     {
-        $cred = $request->validate([
-            'email'    => ['required','email'],
-            'password' => ['required'],
+        $cred = $r->validate([
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
-        if (Auth::attempt($cred, $request->boolean('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+        if (Auth::attempt($cred)) {
+            $r->session()->regenerate();
+            return redirect('/dashboard');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Email atau password salah']);
     }
 
     public function showRegister()
@@ -34,32 +34,27 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(Request $r)
     {
-        $data = $request->validate([
-            'name'     => ['required','string','max:255'],
-            'email'    => ['required','email','max:255','unique:users,email'],
-            'password' => ['required','min:8','confirmed'], // butuh input password_confirmation
+        $data = $r->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role'     => 'mahasiswa', // default, boleh kamu ganti
-        ]);
+        $data['password'] = Hash::make($data['password']);
+        $data['role'] = 'user'; // default mahasiswa
 
+        $user = User::create($data);
         Auth::login($user);
-        $request->session()->regenerate();
-
         return redirect('/dashboard');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $r)
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $r->session()->invalidate();
+        $r->session()->regenerateToken();
         return redirect('/login');
     }
 }
