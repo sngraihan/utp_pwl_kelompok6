@@ -3,6 +3,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PenempatanController;
+
 use Illuminate\Support\Facades\Route;
 
 // Guest
@@ -22,13 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('perusahaan', PerusahaanController::class);
+        Route::resource('penempatan', PenempatanController::class);
     });
 
     // Perusahaan hanya edit profilnya sendiri (opsional, nanti dibikin)
     Route::middleware('role:perusahaan')->group(function () {
-        Route::get('/perusahaan/profil', fn () => view('perusahaan.profil')); // placeholder
+        Route::get('/perusahaan/profil', fn() => view('perusahaan.profil')); // placeholder
     });
 });
 
 // Root
-Route::get('/', fn () => redirect('/dashboard'));
+Route::get('/', fn() => redirect('/dashboard'));

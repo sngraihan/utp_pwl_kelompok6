@@ -9,7 +9,7 @@ class Mahasiswa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nim', 'nama', 'jurusan', 'angkatan', 'kontak_pribadi'];
+    protected $fillable = ['npm', 'nama', 'jurusan', 'angkatan', 'kontak_pribadi'];
 
     protected $casts = [
         'kontak_pribadi' => 'encrypted',
