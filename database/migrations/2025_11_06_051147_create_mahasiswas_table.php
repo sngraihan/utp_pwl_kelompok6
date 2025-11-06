@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration {
             $table->string('nama');
             $table->string('jurusan')->nullable();
             $table->unsignedSmallInteger('angkatan')->nullable();
-            $table->text('kontak_pribadi')->nullable(); // terenkripsi
+            $table->text('kontak_pribadi')->nullable(); // terenkripsi di model
             $table->timestamps();
         });
     }

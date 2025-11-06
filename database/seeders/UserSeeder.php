@@ -2,37 +2,42 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Perusahaan;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-         User::create([
+        User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
             'role' => 'admin',
         ]);
 
-        User::create([
-            'name' => 'Pembimbing',
-            'email' => 'pembimbing@gmail.com',
+        $perusahaanUser = User::create([
+            'name' => 'PT Teknologi Hebat',
+            'email' => 'perusahaan@gmail.com',
             'password' => Hash::make('12345678'),
-            'role' => 'pembimbing',
+            'role' => 'perusahaan',
+        ]);
+
+        Perusahaan::create([
+            'nama' => 'PT Teknologi Hebat',
+            'alamat' => 'Jl. Pahlawan No. 42, Kemiling',
+            'pic' => 'Dwi Sakethi',
+            'kontak' => '081234567890',
+            'owner_user_id' => $perusahaanUser->id,
         ]);
 
         User::create([
             'name' => 'Mahasiswa',
             'email' => 'mahasiswa@gmail.com',
             'password' => Hash::make('12345678'),
-            'role' => 'mahasiswa',
+            'role' => 'user',
         ]);
     }
 }
