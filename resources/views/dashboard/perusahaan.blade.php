@@ -191,17 +191,20 @@
 
   <header>
     <div class="header-left">
-      <img src="/images/logo-perusahaan.png" alt="Logo">
+      <img src="{{ $perusahaan && $perusahaan->logo ? asset('storage/'.$perusahaan->logo) : '/images/logo-perusahaan.png' }}" alt="Logo">
       <div class="header-text">
         <h2>Dashboard Perusahaan</h2>
-        <p>PT Teknologi Hebat</p>
+        <p>{{ $perusahaan->nama ?? 'Perusahaan' }}</p>
       </div>
     </div>
 
-    <form method="POST" action="/logout">
-      @csrf
-      <button type="submit" class="logout-btn">Logout</button>
-    </form>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="{{ route('perusahaan.profil') }}" class="logout-btn" style="text-decoration:none;">Profil Perusahaan</a>
+      <form method="POST" action="/logout">
+        @csrf
+        <button type="submit" class="logout-btn">Logout</button>
+      </form>
+    </div>
   </header>
 
   <main>
