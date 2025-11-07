@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Perusahaan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PerusahaanController extends Controller
@@ -81,5 +83,43 @@ class PerusahaanController extends Controller
     {
         $perusahaan->delete();
         return back()->with('ok', 'Data dihapus');
+    }
+
+    // Perusahaan owner: lihat & update profil sendiri
+    public function profile()
+    {
+        $user = Auth::user();
+        $perusahaan = $user?->perusahaan;
+        abort_unless($perusahaan, 404);
+        return view('perusahaan.profil', compact('perusahaan'));
+    }
+
+    public function updateProfile(Request $r)
+    {
+        $user = Auth::user();
+        $perusahaan = $user?->perusahaan;
+        abort_unless($perusahaan, 404);
+
+        $data = $r->validate([
+            'nama' => 'required|string|max:150|unique:perusahaans,nama,'.$perusahaan->id,
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+        ]);
+
+        if ($r->hasFile('logo')) {
+            // delete old logo if exists
+            if ($perusahaan->logo && Storage::disk('public')->exists($perusahaan->logo)) {
+                Storage::disk('public')->delete($perusahaan->logo);
+            }
+            $path = $r->file('logo')->store('logos', 'public');
+            $data['logo'] = $path;
+        }
+
+        $perusahaan->update($data);
+        // Optional: sinkronkan nama user owner
+        if ($user) {
+            $user->update(['name' => $perusahaan->nama]);
+        }
+
+        return back()->with('ok', 'Profil perusahaan diperbarui.');
     }
 }

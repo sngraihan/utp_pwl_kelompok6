@@ -28,9 +28,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('penempatan', PenempatanController::class);
     });
 
-    // Perusahaan hanya edit profilnya sendiri (opsional, nanti dibikin)
+    // Perusahaan: profil sendiri
     Route::middleware('role:perusahaan')->group(function () {
-        Route::get('/perusahaan/profil', fn() => view('perusahaan.profil')); // placeholder
+        // gunakan path unik agar tidak bentrok dengan resource('perusahaan')
+        Route::get('/profil-perusahaan', [PerusahaanController::class, 'profile'])->name('perusahaan.profil');
+        Route::post('/profil-perusahaan', [PerusahaanController::class, 'updateProfile'])->name('perusahaan.profil.update');
     });
 
     // Absensi untuk mahasiswa
