@@ -161,17 +161,21 @@
   <!-- HEADER PERUSAHAAN -->
   <header>
     <div class="header-left">
-      <img src="/images/logo-perusahaan.png" alt="Logo">
+      @php($comp = \App\Models\User::with('perusahaan')->find(Auth::id())?->perusahaan)
+      <img src="{{ $comp && $comp->logo ? asset('storage/'.$comp->logo) : '/images/logo-perusahaan.png' }}" alt="Logo">
       <div class="header-text">
         <h2>Dashboard Perusahaan</h2>
-        <p>{{ Auth::user()->perusahaan->nama ?? 'Perusahaan' }}</p>
+        <p>{{ $comp->nama ?? 'Perusahaan' }}</p>
       </div>
     </div>
 
-    <form method="POST" action="{{ route('logout') }}">
-      @csrf
-      <button type="submit" class="logout-btn">Logout</button>
-    </form>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="{{ route('perusahaan.profil') }}" class="logout-btn" style="text-decoration:none;">Profil Perusahaan</a>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">Logout</button>
+      </form>
+    </div>
   </header>
 
 @elseif($role === 'mahasiswa')
