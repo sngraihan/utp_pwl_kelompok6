@@ -25,7 +25,7 @@
       <!-- Navigasi tengah -->
       <nav class="absolute left-1/2 -translate-x-1/2 flex gap-6 text-sm font-medium">
         <a href="{{ route('dashboard') }}" class="hover:bg-[#7096D1] px-3 py-1.5 rounded-md transition">Dashboard</a>
-        <a href="{{ route('mahasiswa.index') }}" class="hover:bg-[#7096D1] px-3 py-1.5 rounded-md transition">Mahasiswa</a>
+        <a href="{{ route('mahasiswa.index') }}" class="bg-[#7096D1] px-3 py-1.5 rounded-md transition">Mahasiswa</a>
         <a href="{{ route('perusahaan.index') }}" class="hover:bg-[#7096D1] px-3 py-1.5 rounded-md transition">Perusahaan</a>
         <a href="{{ route('penempatan.index') }}" class="hover:bg-[#7096D1] px-3 py-1.5 rounded-md transition">Penempatan</a>
       </nav>
