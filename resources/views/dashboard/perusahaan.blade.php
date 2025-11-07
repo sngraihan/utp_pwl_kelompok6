@@ -127,7 +127,6 @@
     td {
       background-color: #e8f0ff;
       padding: 10px 12px;
-      
       white-space: nowrap;
     }
 
@@ -159,7 +158,7 @@
       font-weight: 500;
     }
 
-    /* ✅ Responsiveness: proporsional, tidak ubah struktur */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       header {
         padding: 0.6rem 1rem;
@@ -181,6 +180,7 @@
         width: 96%;
         padding: 1rem;
       }
+
       .logout-btn {
         padding: 0.4rem 1rem;
       }
@@ -189,23 +189,7 @@
 </head>
 <body>
 
-  <header>
-    <div class="header-left">
-      <img src="{{ $perusahaan && $perusahaan->logo ? asset('storage/'.$perusahaan->logo) : '/images/logo-perusahaan.png' }}" alt="Logo">
-      <div class="header-text">
-        <h2>Dashboard Perusahaan</h2>
-        <p>{{ $perusahaan->nama ?? 'Perusahaan' }}</p>
-      </div>
-    </div>
-
-    <div style="display:flex; gap:10px; align-items:center;">
-      <a href="{{ route('perusahaan.profil') }}" class="logout-btn" style="text-decoration:none;">Profil Perusahaan</a>
-      <form method="POST" action="/logout">
-        @csrf
-        <button type="submit" class="logout-btn">Logout</button>
-      </form>
-    </div>
-  </header>
+  @include('layouts.header')
 
   <main>
     <h3>Mahasiswa Magang</h3>
@@ -229,9 +213,7 @@
     </div>
   </main>
 
-  <footer>
-    © 2025 Sistem Magang | Desain oleh <span>Tim Views</span>
-  </footer>
+  @include('layouts.footer')
 
 </body>
 </html>
