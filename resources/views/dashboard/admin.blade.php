@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --blue-dark: #334EAC;
@@ -109,13 +110,13 @@
       font-weight: 600;
     }
 
-    /* ===== MENU GRID (Horizontal Layout) ===== */
+    /* ===== MENU GRID ===== */
     .menu-grid {
       display: flex;
       justify-content: center;
       align-items: stretch;
       gap: 2rem;
-      flex-wrap: nowrap; /* Pastikan tetap horizontal di layar besar */
+      flex-wrap: nowrap;
     }
 
     .card {
@@ -181,7 +182,7 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 950px) {
       .menu-grid {
-        flex-wrap: wrap; /* Biar turun ke bawah kalau layar kecil */
+        flex-wrap: wrap;
       }
     }
 
@@ -209,22 +210,7 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h2>Dashboard Admin</h2>
-
-    <div class="nav-center">
-      <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('mahasiswa.index') }}">Mahasiswa</a>
-      <a href="{{ route('perusahaan.index') }}">Perusahaan</a>
-      <a href="{{ route('penempatan.index') }}">Penempatan</a>
-    </div>
-
-    <form method="POST" action="{{ route('logout') }}">
-      @csrf
-      <button type="submit" class="logout-btn">Logout</button>
-    </form>
-  </header>
+  @include('layouts.header')
 
   <!-- MAIN -->
   <main>
@@ -251,10 +237,7 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    &copy; {{ date('Y') }} Sistem Penempatan Mahasiswa - Dashboard Admin
-  </footer>
+  @include('layouts.footer')
 
 </body>
 </html>
