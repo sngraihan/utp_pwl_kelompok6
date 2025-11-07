@@ -9,7 +9,18 @@ class Absensi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['penempatan_id', 'tanggal', 'jam_masuk', 'jam_pulang', 'status', 'catatan'];
+    // Ini sudah mencakup semua field yang kita butuhkan
+    protected $fillable = [
+        'penempatan_id', 
+        'tanggal', 
+        'jam_masuk', 
+        'jam_pulang', 
+        'status', 
+        'catatan'
+    ];
+
+    // Gunakan protected $guarded = [] jika ingin lebih simpel
+    // protected $guarded = [];
 
     public function penempatan()
     {
