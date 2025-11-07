@@ -9,29 +9,43 @@
     --background: #FFF9F0;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   header {
     background: var(--blue-dark);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 2rem;
+    padding: clamp(0.6rem, 1vw, 0.9rem) clamp(1rem, 2vw, 2rem);
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     position: relative;
     z-index: 10;
+    flex-wrap: nowrap;
+    min-height: 60px;
   }
 
-  header h2 {
+  header h2, .logo {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    white-space: nowrap;
   }
 
+  /* Tengah untuk navigasi */
   .nav-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 1.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.6rem, 2vw, 1.25rem);
+    flex-shrink: 1;
+    overflow-x: auto; /* biar di hp tidak kepotong */
+    scrollbar-width: none;
+  }
+
+  .nav-center::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-center a {
@@ -41,6 +55,9 @@
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     transition: all 0.25s ease;
+    font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .nav-center a:hover {
@@ -48,16 +65,19 @@
     transform: translateY(-1px);
   }
 
+  /* Tombol Logout */
   .logout-btn, .btn-logout {
     background: var(--blue-light);
     color: white;
     border: none;
-    padding: 0.4rem 0.9rem;
+    padding: 0.45rem 0.9rem;
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     font-weight: 500;
     cursor: pointer;
     transition: 0.25s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .logout-btn:hover, .btn-logout:hover {
@@ -66,60 +86,55 @@
     transform: translateY(-1px);
   }
 
+  /* Header kiri khusus perusahaan */
   .header-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: clamp(8px, 1vw, 12px);
+    flex-shrink: 0;
   }
 
   .header-left img {
-    width: 40px;
-    height: 40px;
+    width: clamp(35px, 4vw, 42px);
+    height: clamp(35px, 4vw, 42px);
     object-fit: contain;
   }
 
   .header-text h2 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
   }
 
   .header-text p {
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 1.3vw, 0.85rem);
     color: #f5f5f5;
     margin: 0;
   }
 
-  .logo {
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    margin-right: 1rem;
-    transition: color 0.25s ease;
-  }
-
-  nav a:hover {
-    color: var(--blue-light);
-  }
-
-  @media (max-width: 820px) {
+  /* Responsive tweak */
+  @media (max-width: 768px) {
     header {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem;
+      gap: 0.4rem;
     }
 
     .nav-center {
-      position: static;
-      transform: none;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding-top: 0.5rem;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 0 0.3rem;
+    }
+
+    .logout-btn {
+      padding: 0.4rem 0.7rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header {
+      padding: 0.6rem 1rem;
+    }
+
+    .nav-center a {
+      font-size: 0.8rem;
     }
   }
 </style>
@@ -163,7 +178,7 @@
   <!-- HEADER MAHASISWA -->
   <header>
     <div class="logo">Sistem Magang</div>
-    <nav>
+    <nav class="nav-center">
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('absensi.index') }}">Absensi</a>
       <form method="POST" action="{{ route('logout') }}" style="display:inline;">
