@@ -200,14 +200,22 @@
             <th>Nama</th>
             <th>NPM</th>
             <th>Program Studi</th>
+            <th>Periode</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mahasiswa Contoh</td>
-            <td>22000001</td>
-            <td>S1 Ilmu Komputer</td>
-          </tr>
+          @forelse($penempatans as $p)
+            <tr>
+              <td>{{ $p->mahasiswa->nama ?? '-' }}</td>
+              <td>{{ $p->mahasiswa->npm ?? '-' }}</td>
+              <td>{{ $p->mahasiswa->jurusan ?? '-' }}</td>
+              <td>{{ $p->mulai }} s/d {{ $p->selesai ?? 'sekarang' }}</td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="4" class="no-data">Belum ada mahasiswa magang yang terdaftar.</td>
+            </tr>
+          @endforelse
         </tbody>
       </table>
     </div>
