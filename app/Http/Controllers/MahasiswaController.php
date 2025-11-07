@@ -63,6 +63,12 @@ class MahasiswaController extends Controller
         return view('mahasiswa.edit', compact('mahasiswa'));
     }
 
+    public function show(Mahasiswa $mahasiswa)
+    {
+        // kontak_pribadi otomatis terdekripsi via casts pada model
+        return view('mahasiswa.show', compact('mahasiswa'));
+    }
+
     public function update(Request $r, Mahasiswa $mahasiswa)
     {
         $v = $r->validate([

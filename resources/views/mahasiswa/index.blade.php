@@ -96,6 +96,10 @@
                   <td class="py-2 px-3 border border-[#7096D1]">12345678</td>
                   <td class="py-2 px-3 border border-[#7096D1]">
                     <div class="flex items-center justify-center gap-2">
+                      <a href="{{ route('mahasiswa.show', $m) }}"
+                         class="bg-[#334EAC] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#1d2f6f] transition">
+                        Detail
+                      </a>
                       <a href="{{ route('mahasiswa.edit', $m) }}"
                          class="bg-[#7096D1] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#334EAC] transition">
                         Edit
