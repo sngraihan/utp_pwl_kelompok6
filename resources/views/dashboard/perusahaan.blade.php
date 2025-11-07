@@ -201,6 +201,7 @@
             <th>NPM</th>
             <th>Program Studi</th>
             <th>Periode</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -210,10 +211,11 @@
               <td>{{ $p->mahasiswa->npm ?? '-' }}</td>
               <td>{{ $p->mahasiswa->jurusan ?? '-' }}</td>
               <td>{{ $p->mulai }} s/d {{ $p->selesai ?? 'sekarang' }}</td>
+              <td><a href="{{ route('perusahaan.magang.detail', $p) }}">Detail</a></td>
             </tr>
           @empty
             <tr>
-              <td colspan="4" class="no-data">Belum ada mahasiswa magang yang terdaftar.</td>
+              <td colspan="5" class="no-data">Belum ada mahasiswa magang yang terdaftar.</td>
             </tr>
           @endforelse
         </tbody>

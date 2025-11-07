@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Perusahaan;
 use App\Models\User;
+use App\Models\Penempatan;
+use App\Models\Absensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -121,5 +123,25 @@ class PerusahaanController extends Controller
         }
 
         return back()->with('ok', 'Profil perusahaan diperbarui.');
+    }
+
+    public function magangDetail(Penempatan $penempatan)
+    {
+        $user = Auth::user();
+        $perusahaan = $user?->perusahaan;
+        abort_unless($perusahaan && $penempatan->perusahaan_id === $perusahaan->id, 403);
+
+        $today = now()->toDateString();
+        $absensi = Absensi::where('penempatan_id', $penempatan->id)
+            ->orderBy('tanggal', 'desc')
+            ->limit(60)
+            ->get();
+        $todayRow = $absensi->firstWhere('tanggal', $today);
+
+        return view('perusahaan.rekap', [
+            'penempatan' => $penempatan->load('mahasiswa'),
+            'absensi' => $absensi,
+            'todayRow' => $todayRow,
+        ]);
     }
 }

@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
         // gunakan path unik agar tidak bentrok dengan resource('perusahaan')
         Route::get('/profil-perusahaan', [PerusahaanController::class, 'profile'])->name('perusahaan.profil');
         Route::post('/profil-perusahaan', [PerusahaanController::class, 'updateProfile'])->name('perusahaan.profil.update');
+        Route::get('/magang/{penempatan}', [PerusahaanController::class, 'magangDetail'])->name('perusahaan.magang.detail');
     });
 
     // Absensi untuk mahasiswa
