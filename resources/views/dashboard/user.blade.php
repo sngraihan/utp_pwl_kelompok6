@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Dashboard Mahasiswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -114,18 +116,7 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">🎓 Sistem Magang</div>
-    <nav>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/absensi">Absensi</a>
-      <form method="POST" action="/logout" style="display:inline;">
-        @csrf
-        <button class="btn-logout" style="padding:6px 14px;font-size:14px;">Logout</button>
-      </form>
-    </nav>
-  </header>
+  @include('layouts.header')
 
   <!-- MAIN CONTENT -->
   <main>
@@ -141,24 +132,10 @@
       @endif
     </div>
 
-    <p><a href="/absensi">📋 Buka Halaman Absensi</a></p>
+    <p><a href="{{ route('absensi.index') }}">📋 Buka Halaman Absensi</a></p>
   </main>
 
-  <!-- FOOTER -->
-  <footer style="
-  background: linear-gradient(135deg, #334EAC, #7096D1);
-  color: white;
-  text-align: center;
-  padding: 18px 0;
-  font-size: 14px;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-">
-  &copy; {{ date('Y') }} <strong>Sistem Magang Mahasiswa</strong>
-</footer>
+  @include('layouts.footer')
 
 </body>
 </html>
