@@ -251,6 +251,7 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     &copy; {{ date('Y') }} Sistem Penempatan Mahasiswa - Dashboard Admin
   </footer>
