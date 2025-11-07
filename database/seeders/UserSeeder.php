@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Perusahaan;
+use App\Models\Mahasiswa;
+use App\Models\Penempatan;
 
 class UserSeeder extends Seeder
 {
@@ -25,7 +27,7 @@ class UserSeeder extends Seeder
             'role' => 'perusahaan',
         ]);
 
-        Perusahaan::create([
+        $company = Perusahaan::create([
             'nama' => 'PT Teknologi Hebat',
             'alamat' => 'Jl. Pahlawan No. 42, Kemiling',
             'pic' => 'Dwi Sakethi',
@@ -33,11 +35,27 @@ class UserSeeder extends Seeder
             'owner_user_id' => $perusahaanUser->id,
         ]);
 
-        User::create([
+        $mhsUser = User::create([
             'name' => 'Mahasiswa',
             'email' => 'mahasiswa@gmail.com',
             'password' => Hash::make('12345678'),
-            'role' => 'user',
+            'role' => 'mahasiswa',
+        ]);
+
+        $mahasiswa = Mahasiswa::create([
+            'user_id' => $mhsUser->id,
+            'npm' => '22000001',
+            'nama' => 'Mahasiswa Contoh',
+            'jurusan' => 'Informatika',
+            'angkatan' => 2022,
+            'kontak_pribadi' => '085700000000',
+        ]);
+
+        Penempatan::create([
+            'mahasiswa_id' => $mahasiswa->id,
+            'perusahaan_id' => $company->id,
+            'mulai' => now()->toDateString(),
+            'selesai' => null,
         ]);
     }
 }
