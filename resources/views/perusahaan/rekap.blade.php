@@ -8,6 +8,7 @@
   <strong>Nama:</strong> {{ $m->nama ?? '-' }}<br>
   <strong>NPM:</strong> {{ $m->npm ?? '-' }}<br>
   <strong>Program Studi:</strong> {{ $m->jurusan ?? '-' }}<br>
+  <strong>Kontak Mahasiswa:</strong> {{ $m->kontak_pribadi ?? '-' }}<br>
   <strong>Periode:</strong> {{ $penempatan->mulai }} s/d {{ $penempatan->selesai ?? 'sekarang' }}
 </div>
 
@@ -48,4 +49,3 @@
 @else
   <p>Tidak ada data absensi.</p>
 @endif
-
