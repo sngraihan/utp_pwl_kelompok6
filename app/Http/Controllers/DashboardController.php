@@ -24,10 +24,24 @@ class DashboardController extends Controller
             return view('dashboard.perusahaan', compact('perusahaan', 'penempatans'));
         }
 
-        // role 'user' (mahasiswa)
-        // cari penempatan aktif kalau ada (opsional; aman kalau belum ada)
-        $penempatan = $user->relationLoaded('mahasiswa') ? $user->mahasiswa->penempatan ?? null : null;
-        // kalau model User tidak punya relasi ke Mahasiswa, skip saja
-        return view('dashboard.user', compact('penempatan'));
+        // role 'mahasiswa'
+        if ($user->role === 'mahasiswa') {
+            $today = now()->toDateString();
+            $m = $user->mahasiswa;
+            $penempatan = null;
+            if ($m) {
+                $penempatan = \App\Models\Penempatan::with('perusahaan')->where('mahasiswa_id', $m->id)
+                    ->whereDate('mulai', '<=', $today)
+                    ->where(function ($q) use ($today) {
+                        $q->whereNull('selesai')->orWhereDate('selesai', '>=', $today);
+                    })
+                    ->latest('mulai')
+                    ->first();
+            }
+            return view('dashboard.user', compact('penempatan'));
+        }
+
+        // fallback
+        return view('dashboard.user', ['penempatan' => null]);
     }
 }
