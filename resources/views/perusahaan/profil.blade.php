@@ -1,54 +1,88 @@
 <!doctype html>
-<meta charset="utf-8">
-<h2>Profil Perusahaan</h2>
-<p>
-  <a href="{{ route('dashboard') }}"
-    style="display:inline-block;padding:6px 12px;border:1px solid #ccc;border-radius:6px;text-decoration:none;background:#f7f7f7;">&larr;
-    Kembali ke Dashboard</a>
-  <span style="color:#888; font-size:0.9em; margin-left:6px;"></span>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Profil Perusahaan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #FFF9F0;
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start py-10">
 
-</p>
+  <h2 class="text-2xl font-bold text-[#334EAC] mb-6">Profil Perusahaan</h2>
 
-@if(session('ok'))
-  <div style="color: green;">{{ session('ok') }}</div>
-@endif
-@if($errors->any())
-  <div style="color: red;">
-    <ul>
-      @foreach($errors->all() as $e)
-        <li>{{ $e }}</li>
-      @endforeach
-    </ul>
+  <div class="w-11/12 max-w-3xl bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8">
+
+    <p class="mb-6">
+      <a href="{{ route('dashboard') }}"
+        class="inline-block px-4 py-2 border border-[#7096D1] rounded-md bg-[#7096D1]/10 text-[#334EAC] font-medium hover:bg-[#7096D1] hover:text-white transition">
+        &larr; Kembali ke Dashboard
+      </a>
+    </p>
+
+    @if(session('ok'))
+      <div class="mb-4 text-green-700 font-medium bg-green-100 border border-green-300 rounded-md p-3">
+        {{ session('ok') }}
+      </div>
+    @endif
+
+    @if($errors->any())
+      <div class="mb-4 bg-red-100 border border-red-300 text-red-700 rounded-md p-3">
+        <ul class="list-disc pl-5">
+          @foreach($errors->all() as $e)
+            <li>{{ $e }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    <div class="flex flex-col md:flex-row gap-8 items-start">
+
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <div class="w-36 h-36 border border-[#7096D1] rounded-xl flex items-center justify-center overflow-hidden bg-[#f9f9f9]">
+          @if($perusahaan->logo)
+            <img src="{{ asset('storage/' . $perusahaan->logo) }}" alt="Logo" class="object-cover w-full h-full">
+          @else
+            <span class="text-gray-400 text-sm">Belum ada logo</span>
+          @endif
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form method="POST" action="{{ route('perusahaan.profil.update') }}" enctype="multipart/form-data" class="flex-1 space-y-5">
+        @csrf
+
+        <div>
+          <label class="block font-semibold text-[#334EAC] mb-1">Nama Perusahaan</label>
+          <input type="text" name="nama" value="{{ old('nama', $perusahaan->nama) }}" required
+                 class="w-full border border-[#7096D1] rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#334EAC] focus:outline-none transition">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-[#334EAC] mb-1">Logo (jpg/png/svg/gif, maks 2MB)</label>
+          <input type="file" name="logo" accept="image/*"
+                 class="w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#7096D1]/20 file:text-[#334EAC] hover:file:bg-[#7096D1]/40 transition">
+        </div>
+
+        <div class="flex items-center gap-4 pt-2">
+          <button type="submit"
+                  class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
+            Simpan Perubahan
+          </button>
+          <a href="{{ route('dashboard') }}"
+             class="text-[#7096D1] hover:text-[#334EAC] font-semibold transition">
+            Kembali
+          </a>
+        </div>
+      </form>
+    </div>
+
   </div>
-@endif
 
-<div style="display:flex; gap:24px; align-items:flex-start;">
-  <div>
-    <div
-      style="width:120px;height:120px;border:1px solid #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f9f9f9;">
-      @if($perusahaan->logo)
-        <img src="{{ asset('storage/' . $perusahaan->logo) }}" alt="Logo"
-          style="max-width:100%; max-height:100%; object-fit:cover;">
-      @else
-        <span style="color:#888;">Belum ada logo</span>
-      @endif
-    </div>
-  </div>
-
-  <form method="POST" action="{{ route('perusahaan.profil.update') }}" enctype="multipart/form-data" style="flex:1;">
-    @csrf
-    <div style="margin-bottom:10px;">
-      <label>Nama Perusahaan</label><br>
-      <input type="text" name="nama" value="{{ old('nama', $perusahaan->nama) }}" required>
-    </div>
-    <div style="margin-bottom:10px;">
-      <label>Logo (jpg/png/svg/gif, maks 2MB)</label><br>
-      <input type="file" name="logo" accept="image/*">
-    </div>
-    <button type="submit">Simpan Perubahan</button>
-    <a href="{{ route('dashboard') }}">Kembali</a>
-  </form>
-</div>
-
-<p style="margin-top:16px;color:#666;font-size:0.9em;">Catatan: Pastikan sudah menjalankan perintah
-  <code>php artisan storage:link</code> agar logo tampil.</p>
+</body>
+</html>
