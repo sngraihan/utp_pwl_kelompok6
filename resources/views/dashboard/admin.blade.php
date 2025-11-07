@@ -28,72 +28,6 @@
       flex-direction: column;
     }
 
-    /* ===== HEADER ===== */
-    header {
-      background: var(--blue-dark);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      position: relative;
-      z-index: 10;
-    }
-
-    header h2 {
-      font-weight: 600;
-      font-size: 1.2rem;
-      letter-spacing: 0.4px;
-    }
-
-    /* ===== CENTERED MENU ===== */
-    .nav-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    .nav-center a {
-      background: transparent;
-      border: none;
-      color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: all 0.25s ease;
-    }
-
-    .nav-center a:hover {
-      background: var(--blue-light);
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    /* ===== LOGOUT BUTTON ===== */
-    .logout-btn {
-      background: var(--blue-light);
-      color: white;
-      border: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .logout-btn:hover {
-      background: white;
-      color: var(--blue-dark);
-      transform: translateY(-1px);
-    }
-
     /* ===== MAIN CONTENT ===== */
     main {
       padding: 2rem 3rem;
@@ -185,34 +119,14 @@
         flex-wrap: wrap;
       }
     }
-
-    @media (max-width: 820px) {
-      .nav-center {
-        position: static;
-        transform: none;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding-top: 0.5rem;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem;
-      }
-
-      .logout-btn {
-        margin-top: 0.5rem;
-      }
-    }
   </style>
 </head>
 <body>
 
+  {{-- HEADER --}}
   @include('layouts.header')
 
-  <!-- MAIN -->
+  {{-- MAIN CONTENT --}}
   <main>
     <h3>Selamat Datang di Dashboard Admin</h3>
 
@@ -237,6 +151,7 @@
     </div>
   </main>
 
+  {{-- FOOTER --}}
   @include('layouts.footer')
 
 </body>
