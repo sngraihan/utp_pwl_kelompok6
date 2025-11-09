@@ -40,19 +40,10 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="flex-1 flex flex-col items-center justify-start py-10 w-full">
-
-    <!-- Tombol kembali -->
-    <div class="w-full flex justify-start pl-10 pb-4">
-      <a href="{{ route('dashboard') }}"
-         class="text-[#7096D1] hover:text-[#334EAC] font-semibold text-sm transition">
-        &larr; Kembali ke Dashboard
-      </a>
-    </div>
+    <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Edit Mahasiswa</h3>
 
     <!-- Card utama -->
     <div class="bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8 w-11/12 max-w-xl">
-      <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Edit Mahasiswa</h3>
-
       <form method="POST" action="{{ route('mahasiswa.update', $mahasiswa) }}" class="space-y-5">
         @csrf
         @method('PUT')
@@ -87,7 +78,13 @@
                     class="w-full border border-[#7096D1] rounded-lg px-3 py-2 h-24 focus:outline-none focus:ring-2 focus:ring-[#334EAC] transition">{{ $mahasiswa->kontak_pribadi }}</textarea>
         </div>
 
-        <div class="text-center pt-2">
+        <!-- Tombol Aksi -->
+        <div class="flex justify-between items-center pt-6">
+          <a href="{{ route('mahasiswa.index') }}"
+             class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
+            Batal
+          </a>
+
           <button type="submit"
                   class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
             Update

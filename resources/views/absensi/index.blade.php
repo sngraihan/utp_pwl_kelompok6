@@ -23,93 +23,146 @@
 
     .container {
       max-width: 900px;
-      margin: 0 auto;
-      padding: 25px;
+      margin: 40px auto 80px;
+      padding: 0 25px;
     }
 
-    h3, h4 {
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .header-row h3 {
       color: var(--dark-blue);
       border-left: 6px solid var(--mid-blue);
       padding-left: 12px;
-      margin-bottom: 15px;
+      margin: 0;
+    }
+
+    .rekap-btn {
+      background-color: #376ed4ff;
+      color: var(--text-light);
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .rekap-btn:hover {
+      background-color: #4c638eff;
     }
 
     .card {
       background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      padding: 25px;
-      margin-bottom: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 35px;
     }
 
-    .alert {
-      padding: 12px;
+    h4 {
+      color: var(--dark-blue);
+      border-bottom: 2px solid var(--mid-blue);
+      padding-bottom: 6px;
+      margin-top: 0;
       margin-bottom: 20px;
-      border-radius: 6px;
+    }
+
+    /* ALERTS */
+    .alert {
+      padding: 12px 16px;
+      margin-bottom: 25px;
+      border-radius: 8px;
       font-weight: 500;
+      line-height: 1.5;
     }
+
     .alert-ok {
-      background-color: #e6f9e6;
-      color: #2a7f2a;
-      border-left: 5px solid #36b336;
+      background-color: #e7f7e7;
+      color: #276c27;
+      border-left: 6px solid #36b336;
     }
+
     .alert-warning {
       background-color: #fff3cd;
       color: #856404;
-      border-left: 5px solid #ffc107;
+      border-left: 6px solid #ffc107;
     }
 
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+    /* FORM */
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
     .form-control {
-      width: 100%; padding: 10px; border: 1px solid #ccc;
-      border-radius: 6px; font-size: 1rem;
-    }
-    .form-control:focus {
-      outline: none; border-color: var(--mid-blue);
-      box-shadow: 0 0 5px var(--mid-blue);
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: 0.2s ease;
     }
 
-    .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
-    .form-row .form-group { flex: 1; }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--mid-blue);
+      box-shadow: 0 0 4px rgba(112,150,209,0.4);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+    }
+
+    /* BUTTONS */
+    .button-group {
+      display: flex;
+      justify-content: space-between; /* tombol kiri dan kanan */
+      margin-top: 15px;
+    }
 
     .btn {
-      padding: 12px 20px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: 0.3s ease;
-    }
-
-    .btn-primary {
       background-color: var(--dark-blue);
       color: var(--text-light);
     }
 
-    .btn-primary:hover { background-color: #263c8c; }
-
-    .btn-cancel {
-      background-color: #ccc;
-      color: #333;
+    .btn:hover {
+      background-color: #263c8c;
     }
 
-    .btn-cancel:hover { background-color: #b3b3b3; }
-
-    .button-group {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 25px;
-    }
-
+    /* TABLE */
     .table-history {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 20px;
       border-radius: 10px;
       overflow: hidden;
-      margin-top: 15px;
     }
 
     .table-history thead {
@@ -119,42 +172,49 @@
 
     .table-history th, .table-history td {
       padding: 12px 14px;
-      text-align: left;
       border-bottom: 1px solid #eee;
-      font-size: 0.95rem;
+      text-align: left;
     }
 
     .table-history tbody tr:nth-child(even) {
-      background-color: #f9f9f9;
+      background-color: #f8f9ff;
     }
+
     .table-history tbody tr:hover {
       background-color: #eef3fb;
     }
 
     .status {
-      padding: 5px 9px;
-      border-radius: 5px;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-weight: 600;
       color: #fff;
-      font-weight: 500;
-      font-size: 0.85rem;
+      text-transform: capitalize;
     }
+
     .status-hadir { background-color: #28a745; }
     .status-izin { background-color: #ffc107; color: #333; }
     .status-sakit { background-color: #dc3545; }
 
-    #riwayatSection { display: none; }
-
     .back-btn {
+      display: inline-block;
       background-color: var(--mid-blue);
       color: var(--text-light);
-      margin-top: 20px;
+      padding: 10px 20px;
       font-weight: 600;
       border-radius: 8px;
-      padding: 10px 18px;
-      transition: 0.3s;
+      text-decoration: none;
+      margin-top: 25px;
+      transition: background-color 0.3s ease;
     }
+
     .back-btn:hover {
       background-color: #5079c3;
+    }
+
+    #riwayatSection {
+      display: none;
     }
   </style>
 </head>
@@ -163,8 +223,10 @@
 @include('layouts.header')
 
 <div class="container">
-  <h3>Absensi & Jurnal Harian</h3>
-  <p><a href="{{ route('absensi.rekap') }}" class="btn back-btn" style="background-color:#7096D1;">Lihat Rekap Penempatan</a></p>
+  <div class="header-row">
+    <h3>Absensi & Jurnal Harian</h3>
+    <a href="{{ route('absensi.rekap') }}" class="rekap-btn">Lihat Rekap Penempatan</a>
+  </div>
 
   @if (session('ok'))
     <div class="alert alert-ok">{{ session('ok') }}</div>
@@ -194,7 +256,8 @@
         <div class="form-row">
           <div class="form-group">
             <label for="tanggal">Tanggal</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal', now()->toDateString()) }}" required>
+            <input type="date" class="form-control" id="tanggal" name="tanggal"
+              value="{{ old('tanggal', now()->toDateString()) }}" required>
           </div>
           <div class="form-group">
             <label for="status">Status</label>
@@ -223,15 +286,15 @@
         </div>
 
         <div class="button-group">
-          <button type="button" class="btn btn-cancel" onclick="window.location.href='{{ route('dashboard') }}'">Batal</button>
-          <button type="submit" class="btn btn-primary" id="simpanBtn">Simpan Absensi</button>
+          <button type="button" class="btn" onclick="window.location.href='{{ route('dashboard') }}'">Batal</button>
+          <button type="submit" class="btn">Simpan Absensi</button>
         </div>
       </form>
     </div>
 
     <!-- RIWAYAT -->
     <div id="riwayatSection" class="card">
-      <h4>Riwayat (30 hari terakhir)</h4>
+      <h4>Riwayat (30 Hari Terakhir)</h4>
       @if($absensi->count())
         <table class="table-history">
           <thead>
@@ -259,7 +322,7 @@
         <p>Belum ada data absensi.</p>
       @endif
 
-      <button class="btn back-btn" id="backDashboard">⬅ Kembali ke Dashboard</button>
+      <a href="{{ route('dashboard') }}" class="back-btn">Kembali ke Dashboard</a>
     </div>
   @endif
 </div>
@@ -284,31 +347,18 @@ document.addEventListener('DOMContentLoaded', function() {
       jamPulang.required = false;
     }
   }
+
   toggleJamKerja();
   statusSelect.addEventListener('change', toggleJamKerja);
 
-  const absensiForm = document.getElementById('absensiForm');
-  if (absensiForm) {
-    absensiForm.addEventListener('submit', function(event) {
-      const isConfirmed = confirm('Apakah Anda yakin ingin menyimpan data ini?\n\nPERHATIAN: Data yang sudah disimpan tidak dapat diubah kembali.');
-      if (!isConfirmed) event.preventDefault();
-    });
-  }
-
-  const backDashboard = document.getElementById('backDashboard');
+  const formSection = document.getElementById('formSection');
   const riwayatSection = document.getElementById('riwayatSection');
 
-  if (backDashboard) {
-    backDashboard.addEventListener('click', () => {
-      window.location.href = "{{ route('dashboard') }}";
-    });
-  }
-
   @if (session('ok'))
-    document.getElementById('formSection').style.display = 'none';
+    formSection.style.display = 'none';
     riwayatSection.style.display = 'block';
   @else
-    document.getElementById('formSection').style.display = 'block';
+    formSection.style.display = 'block';
     riwayatSection.style.display = 'none';
   @endif
 });
