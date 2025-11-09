@@ -2,79 +2,266 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Mahasiswa Magang</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --blue-dark: #334EAC;
+      --blue-light: #7096D1;
+      --white: #ffffff;
+      --cream: #F9FAFB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #FFF9F0;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(160deg, #FFF9F0);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-light));
+      color: white;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-left img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: white;
+      object-fit: cover;
+      padding: 3px;
+    }
+
+    .header-text h2 {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 600;
+    }
+
+    .header-text p {
+      font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+      opacity: 0.9;
+    }
+
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: white;
+      color: var(--blue-dark);
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      width: 90%;
+      max-width: 950px;
+      background: white;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h2, h3 {
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    h3 {
+      border-left: 4px solid var(--blue-light);
+      padding-left: 10px;
+      margin-bottom: 1rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .info p {
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: var(--blue-dark);
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    td {
+      background-color: #e8f0ff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    tr:hover td {
+      background-color: rgba(112, 150, 209, 0.1);
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 1rem;
+      color: var(--blue-dark);
+      font-style: italic;
+      background: #f9f9ff;
+      border-radius: 10px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: var(--blue-dark);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: var(--blue-light);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--blue-dark);
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+      margin-top: auto;
+    }
+
+    footer span {
+      color: var(--blue-light);
+      font-weight: 500;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.6rem 1rem;
+      }
+
+      .header-left img {
+        width: 38px;
+        height: 38px;
+      }
+
+      main {
+        width: 95%;
+        padding: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        width: 96%;
+        padding: 1rem;
+      }
+
+      .logout-btn {
+        padding: 0.4rem 1rem;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start py-10">
+<body>
 
-  <div class="bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8 w-11/12 max-w-4xl">
+  @include('layouts.header')
 
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-[#334EAC]">Detail Mahasiswa Magang</h2>
-      <a href="{{ route('dashboard') }}"
-        class="inline-block px-4 py-2 border border-[#7096D1] rounded-md bg-[#7096D1]/10 text-[#334EAC] font-medium hover:bg-[#7096D1] hover:text-white transition">
-        &larr; Kembali ke Dashboard
-      </a>
-    </div>
+  <main>
+    <h2>Detail Mahasiswa Magang</h2>
 
     @php($m = $penempatan->mahasiswa)
 
-    <div class="mb-6 space-y-2 text-gray-700">
-      <p><strong class="text-[#334EAC]">Nama:</strong> {{ $m->nama ?? '-' }}</p>
-      <p><strong class="text-[#334EAC]">NPM:</strong> {{ $m->npm ?? '-' }}</p>
-      <p><strong class="text-[#334EAC]">Program Studi:</strong> {{ $m->jurusan ?? '-' }}</p>
-      <p><strong class="text-[#334EAC]">Kontak Mahasiswa:</strong> {{ $m->kontak_pribadi ?? '-' }}</p>
-      <p><strong class="text-[#334EAC]">Periode:</strong> {{ $penempatan->mulai }} s/d {{ $penempatan->selesai ?? 'sekarang' }}</p>
+    <div class="info">
+      <p><strong>Nama:</strong> {{ $m->nama ?? '-' }}</p>
+      <p><strong>NPM:</strong> {{ $m->npm ?? '-' }}</p>
+      <p><strong>Program Studi:</strong> {{ $m->jurusan ?? '-' }}</p>
+      <p><strong>Kontak Mahasiswa:</strong> {{ $m->kontak_pribadi ?? '-' }}</p>
+      <p><strong>Periode:</strong> {{ $penempatan->mulai }} s/d {{ $penempatan->selesai ?? 'sekarang' }}</p>
     </div>
 
-    <div class="mb-8 text-gray-700">
+    <div class="status" style="margin: 15px 0;">
       @if(!$todayRow)
-        <p><strong class="text-[#334EAC]">Status Hari Ini:</strong> Belum absen</p>
+        <p><strong>Status Hari Ini:</strong> Belum absen</p>
       @elseif(!$todayRow->jam_pulang)
-        <p><strong class="text-[#334EAC]">Status Hari Ini:</strong> Sudah absen masuk ({{ $todayRow->jam_masuk }}) — belum pulang</p>
+        <p><strong>Status Hari Ini:</strong> Sudah absen masuk ({{ $todayRow->jam_masuk }}) — belum pulang</p>
       @else
-        <p><strong class="text-[#334EAC]">Status Hari Ini:</strong> Lengkap ({{ $todayRow->jam_masuk }} - {{ $todayRow->jam_pulang }})</p>
+        <p><strong>Status Hari Ini:</strong> Lengkap ({{ $todayRow->jam_masuk }} - {{ $todayRow->jam_pulang }})</p>
       @endif
     </div>
 
-    <h3 class="text-xl font-bold text-[#334EAC] mb-4">Riwayat Absensi</h3>
-
+    <h3>Riwayat Absensi</h3>
     @if($absensi->count())
-      <div class="overflow-x-auto">
-        <table class="min-w-full border border-[#7096D1] rounded-lg text-center">
-          <thead class="bg-[#334EAC] text-[#FFF9F0]">
+      <table>
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Masuk</th>
+            <th>Pulang</th>
+            <th>Status</th>
+            <th>Catatan</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($absensi as $a)
             <tr>
-              <th class="py-2 px-3 border border-[#7096D1]">Tanggal</th>
-              <th class="py-2 px-3 border border-[#7096D1]">Masuk</th>
-              <th class="py-2 px-3 border border-[#7096D1]">Pulang</th>
-              <th class="py-2 px-3 border border-[#7096D1]">Status</th>
-              <th class="py-2 px-3 border border-[#7096D1]">Catatan</th>
+              <td>{{ $a->tanggal }}</td>
+              <td>{{ $a->jam_masuk ?? '-' }}</td>
+              <td>{{ $a->jam_pulang ?? '-' }}</td>
+              <td>{{ ucfirst($a->status) }}</td>
+              <td>{{ $a->catatan ?? '-' }}</td>
             </tr>
-          </thead>
-          <tbody>
-            @foreach($absensi as $a)
-              <tr class="hover:bg-[#FFF9F0] even:bg-[#f3f6fc] transition">
-                <td class="py-2 px-3 border border-[#7096D1]">{{ $a->tanggal }}</td>
-                <td class="py-2 px-3 border border-[#7096D1]">{{ $a->jam_masuk ?? '-' }}</td>
-                <td class="py-2 px-3 border border-[#7096D1]">{{ $a->jam_pulang ?? '-' }}</td>
-                <td class="py-2 px-3 border border-[#7096D1]">{{ ucfirst($a->status) }}</td>
-                <td class="py-2 px-3 border border-[#7096D1]">{{ $a->catatan ?? '-' }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+          @endforeach
+        </tbody>
+      </table>
     @else
-      <p class="text-center text-[#334EAC] font-medium mt-4">Tidak ada data absensi.</p>
+      <p class="no-data">Tidak ada data absensi.</p>
     @endif
 
-  </div>
+    <a href="{{ route('dashboard') }}" class="back-btn">&larr; Kembali ke Dashboard</a>
+  </main>
+
+  @include('layouts.footer')
 
 </body>
 </html>
