@@ -181,7 +181,7 @@
 @elseif($role === 'mahasiswa')
   <!-- HEADER MAHASISWA -->
   <header>
-    <div class="logo">Sistem Magang</div>
+    <div class="logo"> Sistem Absensi Magang Mahasiswa <br> Ilmu Komputer</div>
     <nav class="nav-center">
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('absensi.index') }}">Absensi</a>
