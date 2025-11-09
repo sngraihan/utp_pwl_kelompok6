@@ -116,7 +116,7 @@
         </div>
 
         <div class="flex justify-between pt-6">
-          <a href="{{ route('penempatan.index') }}"
+          <a href="{{ route('mahasiswa.index') }}"
              class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
              Kembali
           </a>

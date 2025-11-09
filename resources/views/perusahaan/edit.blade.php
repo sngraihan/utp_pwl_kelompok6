@@ -40,18 +40,10 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="flex-1 flex flex-col items-center justify-start py-10 w-full">
-
-    <!-- Tombol kembali -->
-    <div class="w-full flex justify-start pl-10 pb-4">
-      <a href="{{ route('dashboard') }}"
-         class="text-[#7096D1] hover:text-[#334EAC] font-semibold text-sm transition">
-        &larr; Kembali ke Dashboard
-      </a>
-    </div>
+    <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Edit Perusahaan</h3>
 
     <!-- Card utama -->
     <div class="bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8 w-11/12 max-w-xl">
-      <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Edit Perusahaan</h3>
 
       @if(session('ok'))
         <div class="mb-4 text-green-700 font-medium bg-green-100 border border-green-300 rounded-md p-3 text-center">
@@ -69,7 +61,7 @@
         </div>
       @endif
 
-      <form method="POST" action="{{ route('perusahaan.update', $perusahaan) }}" class="space-y-5">
+      <form id="editPerusahaanForm" method="POST" action="{{ route('perusahaan.update', $perusahaan) }}" class="space-y-5">
         @csrf
         @method('PUT')
 
@@ -108,23 +100,24 @@
             <span class="text-red-600 text-sm">{{ $message }}</span>
           @enderror
         </div>
-
-        <div class="flex items-center justify-center gap-4 pt-4">
-          <button type="submit"
-                  class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
-            Update
-          </button>
-          <a href="{{ route('perusahaan.index') }}"
-             class="text-[#7096D1] hover:text-[#334EAC] font-semibold transition">
-            Batal
-          </a>
-        </div>
       </form>
+    </div>
+
+    <!-- 🔹 Tombol di luar card -->
+    <div class="flex justify-between items-center w-11/12 max-w-xl mt-6 mb-10">
+      <a href="{{ route('perusahaan.index') }}"
+         class="bg-[#334EAC] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
+        Batal
+      </a>
+      <button type="submit" form="editPerusahaanForm"
+              class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
+        Update
+      </button>
     </div>
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="bg-[#334EAC] text-white text-center py-3 text-sm mt-8">
+  <footer class="bg-[#334EAC] text-white text-center py-3 text-sm mt-auto">
     &copy; {{ date('Y') }} Sistem Informasi Magang. Semua hak dilindungi.
   </footer>
 
