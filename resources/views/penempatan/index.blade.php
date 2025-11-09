@@ -29,217 +29,158 @@
     }
 
     main {
-      padding: 1.5rem 3rem 3rem;
+      padding: 2rem;
       flex: 1;
-      max-width: 1300px;
+      max-width: 1100px;
       width: 100%;
-      margin: 1rem auto;
+      margin: auto;
+      padding-bottom: 5rem; /* ➤ tambahkan jarak bawah agar tidak ketimpa footer */
     }
 
     h3 {
       color: var(--blue-dark);
-      margin-bottom: 1.2rem;
-      font-size: 1.4rem;
-      font-weight: 600;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
     }
 
-    /* Tombol umum */
-    .btn, .btn-danger {
+    /* Kotak tabel */
+    .table-container {
+      background: #fff;
+      border: 2px solid var(--blue-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* Tombol tambah */
+    .top-action {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .btn-add {
       background: var(--blue-dark);
       color: white;
+      font-weight: 600;
       border: none;
-      padding: 0.5rem 1.2rem;
       border-radius: 8px;
+      padding: 0.6rem 1.2rem;
       text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      cursor: pointer;
-      display: inline-block;
+      transition: 0.2s;
     }
 
-    .btn:hover {
+    .btn-add:hover {
       background: var(--blue-light);
       transform: translateY(-2px);
     }
 
-    .btn-link {
-      color: var(--blue-dark);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .btn-danger {
-      background: #dc3545;
-    }
-
-    .btn-danger:hover {
-      background: #c82333;
-    }
-
-    .alert-success {
-      background-color: #d4edda;
-      color: #155724;
-      padding: 0.75rem 1.25rem;
-      margin-bottom: 1rem;
-      border: 1px solid #c3e6cb;
-      border-radius: 8px;
-    }
-
-    .table-container {
-      background: white;
-      padding: 1.8rem;
-      border-radius: 16px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-      overflow-x: auto;
-    }
-
-    .table-styled {
+    /* Tabel */
+    table {
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-      min-width: 600px; /* agar kolom tetap proporsional di layar kecil */
+      border-collapse: separate; /* ➤ ubah ke separate agar radius berfungsi */
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
-    .table-styled th, .table-styled td {
-      padding: 0.8rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-
-    .table-styled thead {
+    thead {
       background: var(--blue-dark);
       color: white;
     }
 
-    .table-styled thead th {
-      font-weight: 600;
+    th, td {
+      border: 1px solid var(--blue-light);
+      padding: 0.8rem 1rem;
+      text-align: center;
+      font-size: 0.95rem;
     }
 
-    .table-styled tbody tr:nth-child(even) {
+    thead th:first-child {
+      border-top-left-radius: 10px; /* ➤ buat sudut tabel tumpul */
+    }
+    thead th:last-child {
+      border-top-right-radius: 10px;
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 10px;
+    }
+
+    tbody tr:nth-child(even) {
       background-color: #f9f9f9;
     }
 
-    .table-styled tbody tr:hover {
-      background-color: var(--background);
+    tbody tr:hover {
+      background-color: #f1f1f1;
     }
 
-    .table-styled td form {
-      margin: 0;
-    }
-
-    .table-styled .action-links {
+    /* Tombol aksi */
+    .action-links {
       display: flex;
+      justify-content: center;
       gap: 0.5rem;
-      align-items: center;
-      flex-wrap: wrap;
     }
 
-    .pagination {
-      margin-top: 1.5rem;
-    }
-
-    .pagination a, .pagination span {
-      padding: 0.5rem 0.75rem;
-      text-decoration: none;
-      color: var(--blue-dark);
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin: 0 2px;
-      font-size: 0.9rem;
-    }
-
-    .pagination span[aria-current="page"] {
-      background: var(--blue-dark);
+    .btn-edit {
+      background: var(--blue-light);
       color: white;
-      border-color: var(--blue-dark);
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-edit:hover {
+      background: var(--blue-dark);
+    }
+
+    .btn-delete {
+      background: #e53935;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .btn-delete:hover {
+      background: #c62828;
     }
 
     /* Tombol kembali */
-    .back-button-container {
-      margin-top: 1.8rem;
-      margin-bottom: 2.5rem;
-    }
-
     .btn-back {
+      display: block;
       background: var(--blue-dark);
       color: white;
-      border: none;
-      padding: 0.9rem 1.4rem;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: all 0.25s ease;
-      display: block;
-      width: 100%;
       text-align: center;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      font-weight: 600;
+      padding: 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-top: 2rem;
+      transition: 0.3s;
     }
 
     .btn-back:hover {
       background: var(--blue-light);
-      transform: translateY(-2px);
     }
 
-    /* ========== RESPONSIVE DESIGN ========== */
-    @media (max-width: 992px) {
-      main {
-        padding: 1rem 1.5rem 2.5rem;
-      }
-      .table-container {
-        padding: 1.2rem;
-      }
-      h3 {
-        font-size: 1.2rem;
-        text-align: center;
-      }
-      .btn {
-        padding: 0.4rem 1rem;
-        font-size: 0.85rem;
-      }
+    /* Footer tetap di bawah */
+    footer {
+      background: var(--blue-dark);
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.9rem;
     }
-
-    @media (max-width: 768px) {
-      .table-styled th, .table-styled td {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.85rem;
-      }
-      .btn-back {
-        font-size: 0.9rem;
-        padding: 0.8rem 1rem;
-        width: 100%;
-      }
-      .action-links {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 576px) {
-      main {
-        padding: 1rem;
-      }
-      h3 {
-        font-size: 1.1rem;
-      }
-      .table-container {
-        padding: 1rem;
-      }
-      .btn, .btn-danger {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.5rem;
-      }
-      .btn-back {
-        font-size: 0.95rem;
-        padding: 0.9rem;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -248,17 +189,20 @@
 
   <main>
     <h3>Data Penempatan</h3>
-    
+
     @if(session('ok'))
-      <div class="alert-success">{{ session('ok') }}</div>
+      <div class="alert alert-success">{{ session('ok') }}</div>
     @endif
 
     <div class="table-container">
-      <a href="{{ route('penempatan.create') }}" class="btn">+ Tambah Penempatan</a>
+      <div class="top-action">
+        <a href="{{ route('penempatan.create') }}" class="btn-add">+ Tambah</a>
+      </div>
 
-      <table class="table-styled">
+      <table>
         <thead>
           <tr>
+            <th>No.</th>
             <th>Mahasiswa</th>
             <th>Perusahaan</th>
             <th>Mulai</th>
@@ -267,40 +211,37 @@
           </tr>
         </thead>
         <tbody>
-          @forelse($penempatans as $p)
+          @forelse($penempatans as $i => $p)
             <tr>
+              <td>{{ $penempatans->firstItem() + $i }}</td>
               <td>{{ $p->mahasiswa->nama ?? '-' }}</td>
               <td>{{ $p->perusahaan->nama ?? '-' }}</td>
               <td>{{ \Carbon\Carbon::parse($p->mulai)->isoFormat('D MMM YYYY') }}</td>
               <td>{{ $p->selesai ? \Carbon\Carbon::parse($p->selesai)->isoFormat('D MMM YYYY') : '-' }}</td>
               <td>
                 <div class="action-links">
-                  <a href="{{ route('penempatan.edit', $p) }}" class="btn-link">Edit</a>
-                  <form action="{{ route('penempatan.destroy', $p) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus penempatan ini?')">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Hapus</button>
+                  <a href="{{ route('penempatan.edit', $p) }}" class="btn-edit">Edit</a>
+                  <form action="{{ route('penempatan.destroy', $p) }}" method="POST" onsubmit="return confirm('Hapus penempatan ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-delete">Hapus</button>
                   </form>
                 </div>
               </td>
             </tr>
           @empty
             <tr>
-              <td colspan="5" style="text-align: center; padding: 1.5rem;">Belum ada data penempatan.</td>
+              <td colspan="6" style="text-align:center; padding:1rem;">Belum ada data penempatan.</td>
             </tr>
           @endforelse
         </tbody>
       </table>
-
-      {{ $penempatans->links('pagination::simple-bootstrap-4') }}
     </div>
 
-    <!-- Tombol kembali di luar tabel dan tidak nempel footer -->
-    <div class="back-button-container">
-      <a href="{{ route('dashboard') }}" class="btn-back">Kembali ke Dashboard</a>
-    </div>
+    <a href="{{ route('dashboard') }}" class="btn-back">Kembali ke Dashboard</a>
   </main>
 
   @include('layouts.footer')
-  
+
 </body>
 </html>

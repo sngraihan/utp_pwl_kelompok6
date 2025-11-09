@@ -10,6 +10,27 @@
       background-color: #FFF9F0;
       font-family: 'Poppins', sans-serif;
     }
+
+    table {
+      border-collapse: separate; /* supaya border-radius bisa aktif */
+      border-spacing: 0;
+      overflow: hidden;
+      border-radius: 12px; /* radius seluruh tabel */
+    }
+
+    thead th:first-child {
+      border-top-left-radius: 12px;
+    }
+    thead th:last-child {
+      border-top-right-radius: 12px;
+    }
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 12px;
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 12px;
+    }
+
     table th, table td {
       text-align: center;
     }
@@ -43,19 +64,11 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="flex-1 flex flex-col items-center justify-start py-10 w-full">
-
-    <!-- Tombol kembali -->
-    <div class="w-full flex justify-start pl-10 pb-4">
-      <a href="{{ route('dashboard') }}"
-         class="text-[#7096D1] hover:text-[#334EAC] font-semibold text-sm transition">
-        &larr; Kembali ke Dashboard
-      </a>
-    </div>
+    <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Mahasiswa</h3>
 
     <!-- Card utama -->
     <div class="bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8 w-11/12 max-w-6xl">
-      <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Mahasiswa</h3>
-
+      
       @if(session('ok'))
         <div class="mb-4 text-green-700 font-medium bg-green-100 border border-green-300 rounded-md p-3 text-center">
           {{ session('ok') }}
@@ -71,10 +84,10 @@
 
       @if($data->count())
         <div class="overflow-x-auto">
-          <table class="min-w-full border border-[#7096D1] rounded-lg">
+          <table class="min-w-full border border-[#7096D1]">
             <thead class="bg-[#334EAC] text-[#FFF9F0]">
               <tr>
-                <th class="py-2 px-3 border border-[#7096D1]">#</th>
+                <th class="py-2 px-3 border border-[#7096D1]">No.</th>
                 <th class="py-2 px-3 border border-[#7096D1]">NPM</th>
                 <th class="py-2 px-3 border border-[#7096D1]">Nama</th>
                 <th class="py-2 px-3 border border-[#7096D1]">Jurusan</th>
@@ -121,12 +134,16 @@
           </table>
         </div>
 
-        <div class="mt-6 flex justify-center">
-          {{ $data->links() }}
-        </div>
       @else
         <p class="text-center text-[#334EAC] font-medium mt-4">Tidak ada data.</p>
       @endif
+    </div>
+
+    <div class="w-11/12 max-w-6xl mt-8">
+      <a href="{{ route('dashboard') }}"
+        class="block text-center bg-[#334EAC] text-white font-semibold py-3 rounded-xl hover:bg-[#7096D1] transition">
+        Kembali ke Dashboard
+      </a>
     </div>
   </main>
 

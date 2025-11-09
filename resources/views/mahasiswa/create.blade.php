@@ -38,9 +38,6 @@
   <!-- ===== MAIN ===== -->
   <main class="flex-1 flex items-center justify-center py-10">
     <div class="bg-white border-2 border-[#7096D1] rounded-2xl shadow-lg p-8 w-11/12 max-w-2xl">
-      <a href="{{ route('dashboard') }}" class="text-[#7096D1] hover:text-[#334EAC] font-medium mb-4 inline-block">
-        &larr; Kembali ke Dashboard
-      </a>
 
       <h3 class="text-2xl font-bold text-[#334EAC] mb-6 text-center">Tambah Mahasiswa</h3>
 
@@ -118,12 +115,16 @@
           @enderror
         </div>
 
-        <div class="text-center pt-4">
+        <div class="flex justify-between pt-6">
+          <a href="{{ route('penempatan.index') }}"
+             class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
+             Kembali
+          </a>
+
           <button type="submit"
                   class="bg-[#334EAC] text-[#FFF9F0] font-semibold py-2 px-6 rounded-lg hover:bg-[#7096D1] transition">
             Simpan
           </button>
-        </div>
       </form>
     </div>
   </main>
