@@ -57,7 +57,6 @@ class AbsensiController extends Controller
             abort(403);
         }
 
-        // 1. Validasi Input Form (Sama seperti sebelumnya)
         $validated = $r->validate([
             'tanggal' => 'required|date',
             'status' => ['required', Rule::in(['hadir', 'izin', 'sakit'])],
@@ -125,7 +124,12 @@ class AbsensiController extends Controller
         $active = null;
 
         if ($mahasiswa) {
+            $today = Carbon::today()->toDateString();
             $active = Penempatan::where('mahasiswa_id', $mahasiswa->id)
+                ->whereDate('mulai', '<=', $today)
+                ->where(function ($q) use ($today) {
+                    $q->whereNull('selesai')->orWhereDate('selesai', '>=', $today);
+                })
                 ->latest('mulai')
                 ->first();
         }
@@ -142,10 +146,9 @@ class AbsensiController extends Controller
 
         $today = Carbon::today();
         $start = Carbon::parse($active->mulai)->startOfDay();
-        $end = $active->selesai ? Carbon::parse($active->selesai)->startOfDay() : $today->copy();
-        if ($end->gt($today)) {
-            $end = $today->copy();
-        }
+        $periodEnd = $active->selesai ? Carbon::parse($active->selesai)->startOfDay() : null; // untuk tampilan Periode
+        // Untuk rekap, gunakan akhir penempatan jika ada; jika belum ditentukan, gunakan hari ini
+        $end = $periodEnd ? $periodEnd->copy() : $today->copy();
 
         $allDates = [];
         for ($d = $start->copy(); $d->lte($end); $d->addDay()) {
@@ -166,6 +169,8 @@ class AbsensiController extends Controller
             'active' => $active,
             'rangeStart' => $start->toDateString(),
             'rangeEnd' => $end->toDateString(),
+            'periodStart' => $start->toDateString(),
+            'periodEnd' => $periodEnd ? $periodEnd->toDateString() : null,
             'records' => $records,
             'missing' => $missing,
         ]);
