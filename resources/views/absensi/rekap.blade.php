@@ -52,11 +52,19 @@
         </div>
         <div>
           <strong>Periode</strong><br>
-          {{ \Carbon\Carbon::parse($rangeStart)->isoFormat('D MMM Y') }} — {{ \Carbon\Carbon::parse($rangeEnd)->isoFormat('D MMM Y') }}
+          {{ \Carbon\Carbon::parse($periodStart)->isoFormat('D MMM Y') }} —
+          @if($periodEnd)
+            {{ \Carbon\Carbon::parse($periodEnd)->isoFormat('D MMM Y') }}
+          @else
+            <em>Berjalan</em>
+          @endif
         </div>
         <div>
           <strong>Total Hari</strong><br>
-          {{ \Carbon\Carbon::parse($rangeStart)->diffInDays(\Carbon\Carbon::parse($rangeEnd)) + 1 }} hari
+          @php
+            $totalHariEnd = $periodEnd ? \Carbon\Carbon::parse($periodEnd) : \Carbon\Carbon::parse($rangeEnd);
+          @endphp
+          {{ \Carbon\Carbon::parse($periodStart)->diffInDays($totalHariEnd) + 1 }} hari
         </div>
         <div>
           <strong>Sudah Absen</strong><br>
@@ -134,4 +142,3 @@
 @include('layouts.footer')
 </body>
 </html>
-
