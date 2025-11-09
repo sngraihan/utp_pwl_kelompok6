@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:mahasiswa')->group(function () {
         Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
         Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
+        Route::get('/absensi/rekap', [AbsensiController::class, 'rekap'])->name('absensi.rekap');
     });
 });
 

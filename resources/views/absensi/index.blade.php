@@ -164,6 +164,7 @@
 
 <div class="container">
   <h3>Absensi & Jurnal Harian</h3>
+  <p><a href="{{ route('absensi.rekap') }}" class="btn back-btn" style="background-color:#7096D1;">Lihat Rekap Penempatan</a></p>
 
   @if (session('ok'))
     <div class="alert alert-ok">{{ session('ok') }}</div>

@@ -7,6 +7,7 @@ use App\Models\Penempatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class AbsensiController extends Controller
 {
@@ -108,5 +109,65 @@ class AbsensiController extends Controller
         // --- PERUBAHAN LOGIKA SELESAI ---
 
         return back()->with('ok', 'Data absensi berhasil disimpan.');
+    }
+
+    /**
+     * Rekap: daftar tanggal yang sudah dan belum diabsen selama rentang penempatan.
+     */
+    public function rekap()
+    {
+        $user = Auth::user();
+        if (!$user || $user->role !== 'mahasiswa') {
+            abort(403);
+        }
+
+        $mahasiswa = $user->mahasiswa;
+        $active = null;
+
+        if ($mahasiswa) {
+            $active = Penempatan::where('mahasiswa_id', $mahasiswa->id)
+                ->latest('mulai')
+                ->first();
+        }
+
+        if (!$active) {
+            return view('absensi.rekap', [
+                'active' => null,
+                'rangeStart' => null,
+                'rangeEnd' => null,
+                'records' => collect(),
+                'missing' => [],
+            ]);
+        }
+
+        $today = Carbon::today();
+        $start = Carbon::parse($active->mulai)->startOfDay();
+        $end = $active->selesai ? Carbon::parse($active->selesai)->startOfDay() : $today->copy();
+        if ($end->gt($today)) {
+            $end = $today->copy();
+        }
+
+        $allDates = [];
+        for ($d = $start->copy(); $d->lte($end); $d->addDay()) {
+            $allDates[] = $d->toDateString();
+        }
+
+        $records = Absensi::where('penempatan_id', $active->id)
+            ->whereBetween('tanggal', [$start->toDateString(), $end->toDateString()])
+            ->orderBy('tanggal')
+            ->get();
+
+        $byDate = $records->keyBy('tanggal');
+        $missing = array_values(array_filter($allDates, function ($date) use ($byDate) {
+            return !$byDate->has($date);
+        }));
+
+        return view('absensi.rekap', [
+            'active' => $active,
+            'rangeStart' => $start->toDateString(),
+            'rangeEnd' => $end->toDateString(),
+            'records' => $records,
+            'missing' => $missing,
+        ]);
     }
 }
